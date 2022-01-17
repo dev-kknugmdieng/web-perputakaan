@@ -30,6 +30,10 @@
 			transform: rotate(360deg);
 		}
 	}
+
+	.container {
+		@apply max-w-7xl mx-auto px-5 md:px-3;
+	}
 }
 
 @layer utilities {
@@ -115,7 +119,7 @@
 
 	html,
 	body {
-		@apply font-main m-0 p-0 bg-base text-primary;
+		@apply font-main m-0 p-0 bg-white text-primary;
 		scroll-behavior: smooth;
 	}
 

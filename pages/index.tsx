@@ -1,51 +1,85 @@
 import React from 'react';
 import MainLayout from '@components/_layouts/MainLayout';
 import Link from '@components/_shared/Link';
+import { useRouter } from 'next/router';
+import DynamicLayout from '@components/_layouts/DynamicLayout';
+import { LayoutContentType, queryLayout } from '@core/prismic/client';
+import { GetStaticPropsResult } from 'next';
 
-const Index = (): JSX.Element => {
+const SearchIcon = ({ className = '' }) => (
+	<svg
+		className={className}
+		width="36"
+		height="37"
+		viewBox="0 0 36 37"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<ellipse
+			cx="17.485"
+			cy="17.4998"
+			rx="14.485"
+			ry="14.4998"
+			stroke="white"
+			stroke-width="5"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		/>
+		<path
+			d="M27.5596 28.3378L33.2386 34.0078"
+			stroke="white"
+			stroke-width="5"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		/>
+	</svg>
+);
+
+const Index = ({ layout_content }: StaticProps): JSX.Element => {
+	const router = useRouter();
 	return (
-		<MainLayout title="Home" className="flex-sc col">
-			<h1 className="mb-4 mt-48 text-4xl font-bold text-center z-10">Next (Basic) Starter</h1>
-			<p className="max-w-sm mb-8 text-center z-10">
-				The template for a quick and intuitive workflow with Next.js and tailwindcss
-			</p>
-
-			<div className="flex-cc gap-4 z-10">
-				<Link href="/about" className="px-4 py-2 text-white bg-accent hover:bg-opacity-80">
-					ABOUT
-				</Link>
-				<Link href="/form" className="px-4 py-2 text-white bg-black hover:bg-opacity-80">
-					FORM
-				</Link>
+		<DynamicLayout content={layout_content} title={'Perpus Sikunang'} key={router.asPath}>
+			<div className="container my-3">
+				<div className="bg-gray-200 min-h-[490px] bg-pos-5 bg-rak-buku bg-cover bg-no-repeat grid grid-cols-2 px-20 py-20 rounded-3xl">
+					<div className="col-span-1 h-full">
+						<div className="relative flex flex-col justify-between h-full">
+							<div>
+								<h1 className="italic mb-5 font-bold text-6xl text-black">
+									Ayo baca buku
+								</h1>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
+									bibendum, tortor iaculis ultricies dignissim, metus erat
+									interdum mi, eu varius velit diam in lorem.
+								</p>
+							</div>
+							<div className="flex absolute -bottom-28 w-full justify-center items-center px-5 py-2 bg-white shadow-lg rounded-xl">
+								<input
+									className="text-2xl w-full"
+									placeholder="Masukan nama bukumu...."
+									type="text"
+								/>
+								<button className="bg-orange p-2 rounded-md">
+									<SearchIcon />
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-
-			<div
-				className="fixed bottom-0 w-full h-1/4 bg-cover flex-cc"
-				style={{
-					backgroundImage: 'url(https://svgshare.com/i/_H4.svg)',
-					paddingBottom: 'env(safe-area-inset-bottom)',
-				}}
-			>
-				<p className="flex-cc gap-1 text-lg">
-					See the{' '}
-					<Link
-						href="https://github.com/stackoverprof/next-starter"
-						target="_blank"
-						className="font-bold underline"
-					>
-						repository
-					</Link>
-				</p>
-			</div>
-		</MainLayout>
+		</DynamicLayout>
 	);
 };
+export interface StaticProps {
+	layout_content: LayoutContentType;
+}
 
-// Above are sample use of
+export const getStaticProps = async (): Promise<GetStaticPropsResult<StaticProps>> => {
+	const layout_content = await queryLayout('main-layout');
 
-// useLayout: which is a custom hooks in context management
-// Alert: custom popping out alert box that automatically vanish
-// Link: custom link that can be styled into anything and is so comfortable
-// MainLayout: open 'components/_layouts/', that is the place where you put navbar and footer, not here
+	return {
+		props: { layout_content },
+	};
+};
 
 export default Index;

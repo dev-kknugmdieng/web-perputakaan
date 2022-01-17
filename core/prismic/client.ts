@@ -30,6 +30,15 @@ export interface SliceType {
 	slice_type: string;
 }
 
+export interface Image {
+	dimensions: {
+		width: number;
+		height: number;
+	};
+	alt: string | null;
+	copyright: string | null;
+	url: string;
+}
 export interface ContentType {
 	html_title: string;
 	route: string;

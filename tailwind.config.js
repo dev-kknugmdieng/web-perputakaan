@@ -9,16 +9,21 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				base: '#ffffff',
 				primary: '#3b3b3b',
-				accent: '#FF5B14',
+				orange: {
+					DEFAULT: '#CCB05C',
+					light: '#DCC98F',
+				},
 				info: '#2DA7FB',
 				warning: '#FFCB11',
 				danger: '#ec4141',
 				success: '#67db8e',
 			},
 			fontFamily: {
-				main: 'ProximaNova, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+				main: 'Roboto, sans-serif',
+			},
+			backgroundImage: {
+				'rak-buku': "url('/Images/hero-banner.jpg')",
 			},
 			screens: {
 				'-2xl': { raw: '(max-width: 1535px)' },
@@ -26,6 +31,9 @@ module.exports = {
 				'-lg': { raw: '(max-width: 1023px)' },
 				'-md': { raw: '(max-width: 767px)' },
 				'-sm': { raw: '(max-width: 639px)' },
+			},
+			backgroundPosition: {
+				'pos-5': '16rem -31rem',
 			},
 		},
 	},
