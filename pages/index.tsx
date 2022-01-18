@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import DynamicLayout from '@components/_layouts/DynamicLayout';
 import { LayoutContentType, queryLayout } from '@core/prismic/client';
 import { GetStaticPropsResult } from 'next';
+import NewsItem from '@components/_shared/NewsItem';
 
 const SearchIcon = ({ className = '' }) => (
 	<svg
@@ -35,10 +36,69 @@ const SearchIcon = ({ className = '' }) => (
 	</svg>
 );
 
+const Beritas = [
+	{
+		title: 'Lorem ipsum',
+		thumbnail: {
+			url: '/Images/cover-1.jpg',
+			dimensions: {
+				width: 200,
+				height: 200,
+			},
+			alt: null,
+			copyright: null,
+		},
+		rating: 4,
+		category: ['Comedy'],
+	},
+	{
+		title: 'Lorem ipsum',
+		thumbnail: {
+			url: '/Images/cover-1.jpg',
+			dimensions: {
+				width: 200,
+				height: 200,
+			},
+			alt: null,
+			copyright: null,
+		},
+		rating: 4,
+		category: ['Comedy'],
+	},
+	{
+		title: 'Lorem ipsum',
+		thumbnail: {
+			url: '/Images/cover-1.jpg',
+			dimensions: {
+				width: 200,
+				height: 200,
+			},
+			alt: null,
+			copyright: null,
+		},
+		rating: 4,
+		category: ['Comedy'],
+	},
+	{
+		title: 'Lorem ipsum',
+		thumbnail: {
+			url: '/Images/cover-1.jpg',
+			dimensions: {
+				width: 200,
+				height: 200,
+			},
+			alt: null,
+			copyright: null,
+		},
+		rating: 4,
+		category: ['Comedy'],
+	},
+];
+
 const Index = ({ layout_content }: StaticProps): JSX.Element => {
 	const router = useRouter();
 	return (
-		<DynamicLayout content={layout_content} title={'Perpus Sikunang'} key={router.asPath}>
+		<DynamicLayout content={layout_content} key={router.asPath}>
 			<div className="container my-3">
 				<div className="bg-gray-200 min-h-[490px] bg-pos-5 bg-rak-buku bg-cover bg-no-repeat grid grid-cols-2 px-20 py-20 rounded-3xl">
 					<div className="col-span-1 h-full">
@@ -67,6 +127,14 @@ const Index = ({ layout_content }: StaticProps): JSX.Element => {
 					</div>
 				</div>
 			</div>
+
+			<section className="my-20 w-full">
+				<div className="container flex justify-start gap-10 md:gap-28">
+					{Beritas.map((berita, index) => (
+						<NewsItem key={index} data={berita} />
+					))}
+				</div>
+			</section>
 		</DynamicLayout>
 	);
 };

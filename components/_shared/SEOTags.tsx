@@ -3,10 +3,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 const DEFAULT = {
-	sitename: 'My Site',
+	sitename: 'Perpus Sikunang',
 	domain: 'http://my-site.com/',
 	description: 'Site description that contains some information about what is your site about',
-	image: 'https://images.unsplash.com/photo-1629058622223-93665bf5d046?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+	image: 'https://perpus-sikunang.cdn.prismic.io/perpus-sikunang/3b2d7a78-7844-47b9-bf04-de1821cf9d12_logo-orange.svg',
 };
 
 const SEOTags = (props: any) => {
