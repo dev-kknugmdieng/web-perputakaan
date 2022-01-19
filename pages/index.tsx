@@ -100,11 +100,11 @@ const Index = ({ layout_content }: StaticProps): JSX.Element => {
 	return (
 		<DynamicLayout content={layout_content} key={router.asPath}>
 			<div className="container my-3">
-				<div className="bg-gray-200 min-h-[490px] bg-pos-5 bg-rak-buku bg-cover bg-no-repeat grid grid-cols-2 px-20 py-20 rounded-3xl">
-					<div className="col-span-1 h-full">
-						<div className="relative flex flex-col justify-between h-full">
+				<div className="bg-gray-200 relative min-h-[490px] md:bg-pos-5 bg-rak-buku bg-cover bg-no-repeat md:grid md:grid-cols-2 p-10 md:p-20 rounded-3xl">
+					<div className="md:col-span-1 h-full">
+						<div className="md:relative flex flex-col justify-between h-full">
 							<div>
-								<h1 className="italic mb-5 font-bold text-6xl text-black">
+								<h1 className="italic mb-5 font-bold text-4xl md:text-6xl text-black">
 									Ayo baca buku
 								</h1>
 								<p>
@@ -113,13 +113,13 @@ const Index = ({ layout_content }: StaticProps): JSX.Element => {
 									interdum mi, eu varius velit diam in lorem.
 								</p>
 							</div>
-							<div className="flex absolute -bottom-28 w-full justify-center items-center px-5 py-2 bg-white shadow-lg rounded-xl">
+							<div className="flex absolute md:left-0 -bottom-8 md:-bottom-28 left-[calc(0%+50px)] w-4/5 md:w-full justify-center items-center px-5 py-2 bg-white shadow-lg rounded-xl">
 								<input
 									className="text-2xl w-full"
 									placeholder="Masukan nama bukumu...."
 									type="text"
 								/>
-								<button className="bg-orange p-2 rounded-md">
+								<button className="bg-orange p-2 rounded-md ml-3">
 									<SearchIcon />
 								</button>
 							</div>
@@ -129,7 +129,7 @@ const Index = ({ layout_content }: StaticProps): JSX.Element => {
 			</div>
 
 			<section className="my-20 w-full">
-				<div className="container flex justify-start gap-10 md:gap-28">
+				<div className="container flex flex-col items-center justify-center md:flex-row flex-wrap md:justify-start gap-10 md:gap-24">
 					{Beritas.map((berita, index) => (
 						<BookItem key={index} data={berita} />
 					))}

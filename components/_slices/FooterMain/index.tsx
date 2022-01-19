@@ -88,15 +88,19 @@ const FooterMain = ({ slice }: Props): JSX.Element => {
 	} = slice.primary;
 	return (
 		<footer className="flex-cc w-full my-10">
-			<div className="container flex justify-between flex-col min-h-[314px] bg-orange py-8 px-11 rounded-[48px]">
-				<div>
-					<img className="w-[252.64px] mb-5" src={logo.url} alt={logo.alt} />
-					<div className="text-white">{RichText.render(address)}</div>
-				</div>
-				<div className="flex gap-1">
-					{slice.items.map((sosmed, index) => (
-						<SocialMediaIcon key={index} data={sosmed} />
-					))}
+			<div className="container">
+				<div className="bg-orange w-full h-full py-8 px-11 rounded-[48px] flex justify-between flex-col">
+					<div className="mb-3">
+						<img className="w-[252.64px] mb-5" src={logo.url} alt={logo.alt} />
+						<div className="text-white text-center md:text-left">
+							{RichText.render(address)}
+						</div>
+					</div>
+					<div className="flex justify-center md:justify-start gap-1">
+						{slice.items.map((sosmed, index) => (
+							<SocialMediaIcon key={index} data={sosmed} />
+						))}
+					</div>
 				</div>
 			</div>
 		</footer>

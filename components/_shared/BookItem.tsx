@@ -22,13 +22,16 @@ interface Props {
 
 const BookItem = ({ data }: Props) => {
 	return (
-		<div className="md:w-60 w-full">
+		<div className="md:w-60 group w-full">
 			<Link href="/">
-				<img
-					className=" h-60 w-60 object-cover overflow-hidden rounded-xl"
-					src={data.thumbnail.url}
-					alt={data.thumbnail.alt}
-				/>
+				<div className="relative group-hover:rounded rounded-xl overflow-hidden">
+					<div className="absolute z-20 left-0 top-0 w-full h-full max-h-60 bg-black transition-colors bg-opacity-0 group-hover:bg-opacity-10"></div>
+					<img
+						className="h-full relative z-10 max-h-60 w-full md:w-60 object-cover overflow-hidden transition-all"
+						src={data.thumbnail.url}
+						alt={data.thumbnail.alt}
+					/>
+				</div>
 			</Link>
 			<div className="w-full flex my-3 gap-2">
 				{Array(data.rating)
