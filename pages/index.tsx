@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import DynamicLayout from '@components/_layouts/DynamicLayout';
 import { LayoutContentType, queryLayout } from '@core/prismic/client';
 import { GetStaticPropsResult } from 'next';
-import NewsItem from '@components/_shared/NewsItem';
+import BookItem from '@components/_shared/BookItem';
 
 const SearchIcon = ({ className = '' }) => (
 	<svg
@@ -22,16 +22,16 @@ const SearchIcon = ({ className = '' }) => (
 			rx="14.485"
 			ry="14.4998"
 			stroke="white"
-			stroke-width="5"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeWidth="5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 		<path
 			d="M27.5596 28.3378L33.2386 34.0078"
 			stroke="white"
-			stroke-width="5"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeWidth="5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 	</svg>
 );
@@ -131,7 +131,7 @@ const Index = ({ layout_content }: StaticProps): JSX.Element => {
 			<section className="my-20 w-full">
 				<div className="container flex justify-start gap-10 md:gap-28">
 					{Beritas.map((berita, index) => (
-						<NewsItem key={index} data={berita} />
+						<BookItem key={index} data={berita} />
 					))}
 				</div>
 			</section>

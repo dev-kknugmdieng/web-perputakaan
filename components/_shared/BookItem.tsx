@@ -20,7 +20,7 @@ interface Props {
 	};
 }
 
-const NewsItem = ({ data }: Props) => {
+const BookItem = ({ data }: Props) => {
 	return (
 		<div className="md:w-60 w-full">
 			<Link href="/">
@@ -42,8 +42,10 @@ const NewsItem = ({ data }: Props) => {
 					<Link href="/">{data.title}</Link>
 				</h4>
 				<div>
-					{data.category.map((cat) => (
-						<span className="bg-[#CCB05C80] text-[#CCB05C] px-2 py-1">{cat}</span>
+					{data.category.map((cat, index) => (
+						<span key={index} className="bg-[#CCB05C80] text-[#CCB05C] px-2 py-1">
+							{cat}
+						</span>
 					))}
 				</div>
 			</div>
@@ -51,4 +53,4 @@ const NewsItem = ({ data }: Props) => {
 	);
 };
 
-export default NewsItem;
+export default BookItem;

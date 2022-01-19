@@ -23,7 +23,6 @@ const Form = (): JSX.Element => {
 		setIsLoading(true);
 
 		setTimeout(() => {
-			console.log(form);
 			alert('submitted');
 			resetForm();
 			setIsLoading(false);

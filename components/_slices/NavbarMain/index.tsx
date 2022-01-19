@@ -9,7 +9,6 @@ interface Props {
 }
 
 const NavbarMain = ({ slice }: Props): JSX.Element => {
-	console.log(slice);
 	const links: {
 		position: string;
 		route: string;
