@@ -1,4 +1,5 @@
-import { Image } from '@core/prismic/client';
+import { BookDoc, ImageType } from '@core/prismic/client';
+import { RichText } from 'prismic-reactjs';
 import React from 'react';
 import Link from './Link';
 
@@ -12,15 +13,11 @@ const StarIcon = () => (
 );
 
 interface Props {
-	data: {
-		title: string;
-		thumbnail: Image;
-		rating: number;
-		category: string[];
-	};
+	book: BookDoc;
 }
 
-const BookItem = ({ data }: Props) => {
+const BookItem = ({ book }: Props) => {
+	const data = book.data;
 	return (
 		<div className="md:w-60 group w-full">
 			<Link href="/">
@@ -28,8 +25,8 @@ const BookItem = ({ data }: Props) => {
 					<div className="absolute z-20 left-0 top-0 w-full h-full max-h-60 bg-black transition-colors bg-opacity-0 group-hover:bg-opacity-10"></div>
 					<img
 						className="h-full relative z-10 max-h-60 w-full md:w-60 object-cover overflow-hidden transition-all"
-						src={data.thumbnail.url}
-						alt={data.thumbnail.alt}
+						src={data.cover.url}
+						alt={data.cover.alt}
 					/>
 				</div>
 			</Link>
@@ -42,12 +39,12 @@ const BookItem = ({ data }: Props) => {
 			</div>
 			<div>
 				<h4 className="my-4 font-bold text-lg italic">
-					<Link href="/">{data.title}</Link>
+					<Link href="/">{data.html_title}</Link>
 				</h4>
 				<div>
-					{data.category.map((cat, index) => (
+					{data.genre.map((genre, index) => (
 						<span key={index} className="bg-[#CCB05C80] text-[#CCB05C] px-2 py-1">
-							{cat}
+							{RichText.asText(genre.content)}
 						</span>
 					))}
 				</div>

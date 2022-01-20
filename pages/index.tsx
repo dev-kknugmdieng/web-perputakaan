@@ -1,153 +1,22 @@
 import React from 'react';
-import MainLayout from '@components/_layouts/MainLayout';
-import Link from '@components/_shared/Link';
+import CustomPage, { StaticProps } from './[...customs]';
 import { useRouter } from 'next/router';
 import DynamicLayout from '@components/_layouts/DynamicLayout';
-import { LayoutContentType, queryLayout } from '@core/prismic/client';
+import {
+	BookType,
+	LayoutContentType,
+	queryBookByUID,
+	queryLayout,
+	queryPageByRoute,
+} from '@core/prismic/client';
 import { GetStaticPropsResult } from 'next';
-import BookItem from '@components/_shared/BookItem';
-
-const SearchIcon = ({ className = '' }) => (
-	<svg
-		className={className}
-		width="36"
-		height="37"
-		viewBox="0 0 36 37"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<ellipse
-			cx="17.485"
-			cy="17.4998"
-			rx="14.485"
-			ry="14.4998"
-			stroke="white"
-			strokeWidth="5"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-		/>
-		<path
-			d="M27.5596 28.3378L33.2386 34.0078"
-			stroke="white"
-			strokeWidth="5"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-		/>
-	</svg>
-);
-
-const Beritas = [
-	{
-		title: 'Lorem ipsum',
-		thumbnail: {
-			url: '/Images/cover-1.jpg',
-			dimensions: {
-				width: 200,
-				height: 200,
-			},
-			alt: null,
-			copyright: null,
-		},
-		rating: 4,
-		category: ['Comedy'],
-	},
-	{
-		title: 'Lorem ipsum',
-		thumbnail: {
-			url: '/Images/cover-1.jpg',
-			dimensions: {
-				width: 200,
-				height: 200,
-			},
-			alt: null,
-			copyright: null,
-		},
-		rating: 4,
-		category: ['Comedy'],
-	},
-	{
-		title: 'Lorem ipsum',
-		thumbnail: {
-			url: '/Images/cover-1.jpg',
-			dimensions: {
-				width: 200,
-				height: 200,
-			},
-			alt: null,
-			copyright: null,
-		},
-		rating: 4,
-		category: ['Comedy'],
-	},
-	{
-		title: 'Lorem ipsum',
-		thumbnail: {
-			url: '/Images/cover-1.jpg',
-			dimensions: {
-				width: 200,
-				height: 200,
-			},
-			alt: null,
-			copyright: null,
-		},
-		rating: 4,
-		category: ['Comedy'],
-	},
-];
-
-const Index = ({ layout_content }: StaticProps): JSX.Element => {
-	const router = useRouter();
-	return (
-		<DynamicLayout content={layout_content} key={router.asPath}>
-			<div className="container my-3">
-				<div className="bg-gray-200 relative min-h-[490px] md:bg-pos-5 bg-rak-buku bg-cover bg-no-repeat md:grid md:grid-cols-2 p-10 md:p-20 rounded-3xl">
-					<div className="md:col-span-1 h-full">
-						<div className="md:relative flex flex-col justify-between h-full">
-							<div>
-								<h1 className="italic mb-5 font-bold text-4xl md:text-6xl text-black">
-									Ayo baca buku
-								</h1>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-									bibendum, tortor iaculis ultricies dignissim, metus erat
-									interdum mi, eu varius velit diam in lorem.
-								</p>
-							</div>
-							<div className="flex absolute md:left-0 -bottom-8 md:-bottom-28 left-[calc(0%+50px)] w-4/5 md:w-full justify-center items-center px-5 py-2 bg-white shadow-lg rounded-xl">
-								<input
-									className="text-2xl w-full"
-									placeholder="Masukan nama bukumu...."
-									type="text"
-								/>
-								<button className="bg-orange p-2 rounded-md ml-3">
-									<SearchIcon />
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<section className="my-20 w-full">
-				<div className="container flex flex-col items-center justify-center md:flex-row flex-wrap md:justify-start gap-10 md:gap-24">
-					{Beritas.map((berita, index) => (
-						<BookItem key={index} data={berita} />
-					))}
-				</div>
-			</section>
-		</DynamicLayout>
-	);
-};
-export interface StaticProps {
-	layout_content: LayoutContentType;
-}
-
 export const getStaticProps = async (): Promise<GetStaticPropsResult<StaticProps>> => {
-	const layout_content = await queryLayout('main-layout');
+	const content = await queryPageByRoute('/');
+	const layout_content = await queryLayout(content.layout.uid);
 
 	return {
-		props: { layout_content },
+		props: { layout_content, content },
 	};
 };
 
-export default Index;
+export default CustomPage;

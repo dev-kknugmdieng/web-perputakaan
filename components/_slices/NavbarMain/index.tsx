@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, SliceType } from '@core/prismic/client';
+import { ImageType, SliceType } from '@core/prismic/client';
 import { RichText, RichTextBlock } from 'prismic-reactjs';
 import Link from '@components/_shared/Link';
 import { useRouter } from 'next/router';
@@ -37,7 +37,7 @@ const NavbarMain = ({ slice }: Props): JSX.Element => {
 		text: RichTextBlock[];
 		type: string;
 	}[] = slice.items;
-	const { logo }: { logo: Image } = slice.primary;
+	const { logo }: { logo: ImageType } = slice.primary;
 	const LinkLeft = links.filter((data) => data.position === 'Left');
 	const router = useRouter();
 	const [OpenNav, setOpenNav] = useState(false);

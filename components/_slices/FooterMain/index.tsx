@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, SliceType } from '@core/prismic/client';
+import { ImageType, SliceType } from '@core/prismic/client';
 import { RichText, RichTextBlock } from 'prismic-reactjs';
 import Link from '@components/_shared/Link';
 
@@ -84,7 +84,7 @@ const FooterMain = ({ slice }: Props): JSX.Element => {
 		logo,
 	}: {
 		address: RichTextBlock[];
-		logo: Image;
+		logo: ImageType;
 	} = slice.primary;
 	return (
 		<footer className="flex-cc w-full my-10">
