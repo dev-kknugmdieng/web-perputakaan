@@ -20,11 +20,11 @@ const BookItem = ({ book }: Props) => {
 	const data = book.data;
 	return (
 		<div className="md:w-60 group w-full">
-			<Link href="/">
+			<Link href={`/buku/${book.uid}`}>
 				<div className="relative group-hover:rounded rounded-xl overflow-hidden">
 					<div className="absolute z-20 left-0 top-0 w-full h-full max-h-60 bg-black transition-colors bg-opacity-0 group-hover:bg-opacity-10"></div>
 					<img
-						className="h-full relative z-10 max-h-60 w-full md:w-60 object-cover overflow-hidden transition-all"
+						className="h-full max-h-60 w-full md:w-60 relative z-10  object-cover overflow-hidden transition-all"
 						src={data.cover.url}
 						alt={data.cover.alt}
 					/>
@@ -39,7 +39,7 @@ const BookItem = ({ book }: Props) => {
 			</div>
 			<div>
 				<h4 className="my-4 font-bold text-lg italic">
-					<Link href="/">{data.html_title}</Link>
+					<Link href={`/buku/${book.uid}`}>{data.html_title}</Link>
 				</h4>
 				<div>
 					{data.genre.map((genre, index) => (

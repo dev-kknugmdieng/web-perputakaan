@@ -23,7 +23,7 @@ export const queryBookByUID = (uid: string): Promise<BookType> => {
 		.catch(() => null);
 };
 
-export const queryAllBooks = (uid: string): Promise<BookDoc[]> => {
+export const queryAllBooks = (): Promise<BookDoc[]> => {
 	return client
 		.getAllByType('book', {
 			orderings: {
@@ -123,6 +123,7 @@ export interface BookType extends DataInterface {
 	genre: {
 		content: RichTextBlock[];
 	}[];
+	author: RichTextBlock[];
 	rating: number;
 }
 

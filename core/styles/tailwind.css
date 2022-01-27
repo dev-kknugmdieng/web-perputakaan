@@ -34,6 +34,10 @@
 	.container {
 		@apply max-w-7xl mx-auto px-5 md:px-3;
 	}
+
+	.paragraph-content p {
+		@apply mb-4 text-lg text-black;
+	}
 }
 
 @layer utilities {
