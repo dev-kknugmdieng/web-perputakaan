@@ -5,7 +5,7 @@ interface Props {
 	slice: SliceType;
 }
 
-const SearchIcon = ({ className = '' }) => (
+export const SearchIcon = ({ className = '' }) => (
 	<svg
 		className={className}
 		width="36"

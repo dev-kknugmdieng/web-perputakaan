@@ -21,7 +21,7 @@ const CustomPage = ({ content, layout_content }: StaticProps): JSX.Element => {
 };
 
 export interface StaticProps {
-	content: ContentType;
+	content?: ContentType;
 	layout_content: LayoutContentType;
 }
 

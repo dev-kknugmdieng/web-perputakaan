@@ -1,5 +1,5 @@
-import artikelIndex from '@core/algolia';
-import client, { ImageType, NewsDoc, SliceType } from '@core/prismic/client';
+import bookIndex from '@core/algolia';
+import client, { ImageType, BookDoc, SliceType } from '@core/prismic/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { RichTextBlock } from 'prismic-reactjs';
 
@@ -10,20 +10,30 @@ export interface algoliaObject {
 	first_publication_date: string;
 	last_publication_date: string;
 	lang: string;
-	data: {
-		thumbnail: ImageType;
-		ringkasan: RichTextBlock[];
-		author: string;
-		html_title: string;
-		layout: {
-			uid: string;
-		};
-		created_at: string;
-		body: SliceType[];
-	};
+	title: string;
+	cover: ImageType;
+	desc: RichTextBlock[];
+	author: RichTextBlock[];
+	rating: number;
+	status: string;
+	genre: string[];
 }
 
-export const formatDoc = (doc: NewsDoc): algoliaObject => {
+export const formatDoc = (doc: BookDoc): algoliaObject => {
+	function FormtedGenre(
+		genres: {
+			content: RichTextBlock[];
+		}[]
+	) {
+		const genreList: string[] = [];
+		genres.forEach((genre) => {
+			genre.content.forEach((item) => {
+				genreList.push(item.text);
+			});
+		});
+		return genreList;
+	}
+
 	return {
 		objectID: doc.id,
 		uid: doc.uid,
@@ -31,17 +41,13 @@ export const formatDoc = (doc: NewsDoc): algoliaObject => {
 		first_publication_date: doc.first_publication_date,
 		last_publication_date: doc.last_publication_date,
 		lang: doc.lang,
-		data: {
-			thumbnail: doc.data.thumbnail,
-			ringkasan: doc.data.ringkasan,
-			author: doc.data.author,
-			html_title: doc.data.html_title,
-			layout: {
-				uid: doc.data.layout.uid,
-			},
-			created_at: doc.data.created_at,
-			body: doc.data.body,
-		},
+		title: doc.data.html_title,
+		cover: doc.data.cover,
+		desc: doc.data.desc,
+		author: doc.data.author,
+		rating: doc.data.rating,
+		status: doc.data.status,
+		genre: FormtedGenre(doc.data.genre),
 	};
 };
 
@@ -72,12 +78,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 		return Promise.all(promises)
 			.then((result) => {
-				result.forEach((doc: NewsDoc) => {
-					if (doc.type === 'news') {
+				result.forEach((doc: BookDoc) => {
+					if (doc.type === 'book') {
 						algoliaObjects.push(formatDoc(doc));
 					}
 				});
-				return artikelIndex.saveObjects(algoliaObjects);
+
+				return bookIndex.saveObjects(algoliaObjects);
 			})
 			.then(() => {
 				return res.status(200).json({ status: 'index success' });
