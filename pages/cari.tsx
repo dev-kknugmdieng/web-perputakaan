@@ -16,25 +16,37 @@ const Cari = ({ layout_content }: StaticProps): JSX.Element => {
 	const [Query, setQuery] = useState<string>(
 		typeof query !== 'string' ? query.toString() : query
 	);
+	const [PrevQuery, setPrevQuery] = useState<string>(
+		typeof query !== 'string' ? query.toString() : query
+	);
 	const [PageNumber, setPageNumber] = useState(0);
 	const [MaxPageNumber, setMaxPageNumber] = useState(0);
 	const [IsLoading, setIsLoading] = useState(true);
 	const [Books, setBooks] = useState([]);
 
 	useEffect(() => {
-		console.log(Query);
 		publicBookIndex
 			.search(Query, {
 				hitsPerPage: 10,
 				page: PageNumber,
 			})
 			.then((res) => {
-				console.log(res);
-				setMaxPageNumber(res.nbPages - 1);
-				setBooks(res.hits);
+				if (res.nbPages > 0) {
+					setMaxPageNumber(res.nbPages - 1);
+				} else {
+					setMaxPageNumber(0);
+				}
+
+				if (res.query === PrevQuery) {
+					setBooks((prev) => prev.concat(res.hits));
+				} else {
+					setBooks(res.hits);
+					setPrevQuery(Query);
+				}
+
 				setIsLoading(false);
 			});
-	}, [Query]);
+	}, [Query, PageNumber]);
 
 	const debounceQuery = useCallback(
 		debounce((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,8 +58,11 @@ const Cari = ({ layout_content }: StaticProps): JSX.Element => {
 	function handleQueryInput(event: React.ChangeEvent<HTMLInputElement>) {
 		setIsLoading(true);
 		debounceQuery(event);
-
-		if (event.target.value.length < 1) setIsLoading(false);
+		if (event.target.value === Query) setIsLoading(false);
+	}
+	function handleLoadMore() {
+		setPageNumber((prev) => prev + 1);
+		setIsLoading(true);
 	}
 	return (
 		<DynamicLayout content={layout_content} title="Cari Buku">
@@ -92,6 +107,18 @@ const Cari = ({ layout_content }: StaticProps): JSX.Element => {
 					</div>
 				)}
 				{!IsLoading && Books.map((book, index) => <BookItem key={index} book={book} />)}
+				{!IsLoading && Books.length < 1 && <div>Buku tidak ditemukan</div>}
+			</div>
+			<div className="w-full container flex-cc">
+				{MaxPageNumber !== PageNumber && (
+					<button
+						onClick={handleLoadMore}
+						disabled={IsLoading}
+						className="w-full disabled:opacity-50 p-4 bg-orange text-white font-bold rounded-md"
+					>
+						Load More
+					</button>
+				)}
 			</div>
 		</DynamicLayout>
 	);
@@ -135,7 +162,7 @@ const BookItem = ({ book }: Props) => {
 				<h4 className="my-4 font-bold text-lg italic">
 					<Link href={`/buku/${book.uid}`}>{data.title}</Link>
 				</h4>
-				<div>
+				<div className="flex gap-2">
 					{data.genre.map((genre, index) => (
 						<span key={index} className="bg-[#CCB05C80] text-[#CCB05C] px-2 py-1">
 							{genre}
