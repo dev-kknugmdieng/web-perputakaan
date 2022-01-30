@@ -38,6 +38,14 @@
 	.paragraph-content p {
 		@apply mb-4 text-lg text-black;
 	}
+
+	.poster-list .header h2 {
+		@apply text-3xl w-full text-center font-bold relative before:w-full before:left-0 before:h-px before:bg-black before:absolute before:-bottom-3;
+	}
+
+	.embed iframe {
+		@apply md:w-[1280px] h-full md:h-[720px] max-w-[calc(100vw-20px)];
+	}
 }
 
 @layer utilities {
