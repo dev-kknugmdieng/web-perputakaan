@@ -1,4 +1,4 @@
-import { BookDoc, ImageType } from '@core/prismic/client';
+import { BookDoc } from '@core/prismic/client';
 import { RichText } from 'prismic-reactjs';
 import React from 'react';
 import Link from './Link';

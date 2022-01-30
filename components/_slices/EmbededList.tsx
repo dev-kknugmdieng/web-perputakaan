@@ -10,8 +10,10 @@ const EmbededList = ({ slice }: { slice: SliceType }) => {
 		<section className="my-5 embed container">
 			<div className="header w-full">{RichText.render(slice.primary.title)}</div>
 			<div className="w-full flex-cc flex-col">
-				{slice.items.map((item) => (
-					<div className="my-5">{parse(RichText.asText(item.body1))}</div>
+				{slice.items.map((item, index) => (
+					<div key={index} className="my-5">
+						{parse(RichText.asText(item.body1))}
+					</div>
 				))}
 			</div>
 		</section>

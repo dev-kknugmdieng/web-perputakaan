@@ -3,7 +3,7 @@ import { SearchIcon } from '@components/_slices/Header';
 import { publicBookIndex } from '@core/algolia';
 import { queryLayout } from '@core/prismic/client';
 import debounce from '@core/utils/debounce';
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetStaticPropsResult } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -147,9 +147,7 @@ const BookItem = ({ book }: Props) => {
 	);
 };
 
-export const getServerSideProps = async (
-	context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<StaticProps>> => {
+export const getStaticProps = async (): Promise<GetStaticPropsResult<StaticProps>> => {
 	const layout_content = await queryLayout('main-layout');
 
 	return {
